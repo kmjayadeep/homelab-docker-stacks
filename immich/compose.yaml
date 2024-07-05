@@ -1,0 +1,39 @@
+name: immich
+services:
+  redis:
+    container_name: immich_redis
+    image: docker.io/redis:7.2.5-alpine3.20
+    healthcheck:
+      test: redis-cli ping || exit 1
+    restart: always
+  immich-machine-learning:
+    container_name: immich_machine_learning
+    image: ghcr.io/immich-app/immich-machine-learning:${IMMICH_VERSION:-release}
+    volumes:
+      - model-cache:/cache
+    env_file:
+      - .env
+    restart: always
+  immich-server:
+    container_name: immich_server
+    image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION:-release}
+    volumes:
+      - /mnt/immich:/usr/src/app/upload
+      - /etc/localtime:/etc/localtime:ro
+    devices:
+      - /dev/dri:/dev/dri
+    env_file:
+      - .env
+    ports:
+      - 3001:3001
+    depends_on:
+      - redis
+    restart: always
+    networks:
+      - nginx_proxynetwork
+      - default
+volumes:
+  model-cache: null
+networks:
+  nginx_proxynetwork:
+    external: true

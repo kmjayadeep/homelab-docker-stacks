@@ -1,0 +1,16 @@
+version: "3"
+services:
+  minio:
+    image: docker.io/bitnami/minio:2024.5.28
+    expose:
+      - 9000
+      - 9001
+    volumes:
+      - /mnt/data/minio/:/bitnami/minio/data
+    restart: unless-stopped
+    networks:
+      - nginx_proxynetwork
+    env_file: .env
+networks:
+  nginx_proxynetwork:
+    external: true

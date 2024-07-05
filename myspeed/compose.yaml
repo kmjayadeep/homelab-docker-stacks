@@ -1,0 +1,14 @@
+version: "3.3"
+services:
+  myspeed:
+    expose:
+      - 5216
+    volumes:
+      - /mnt/data/myspeed:/myspeed/data
+    restart: unless-stopped
+    image: germannewsmaker/myspeed:1.0.9
+    networks:
+      - nginx_proxynetwork
+networks:
+  nginx_proxynetwork:
+    external: true

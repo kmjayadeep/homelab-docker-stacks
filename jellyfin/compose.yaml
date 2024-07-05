@@ -1,0 +1,29 @@
+services:
+  jellyfin:
+    image: lscr.io/linuxserver/jellyfin:10.9.1
+    container_name: jellyfin
+    environment:
+      - PUID=1000
+      - PGID=107
+      - TZ=Europe/Berlin
+      - JELLYFIN_PublishedServerUrl=jellyfin.cosmos.cboxlab.com:8096
+    volumes:
+      - /mnt/data/jellyfin/config:/config
+      - /mnt/data/jellyfin/transcodes:/config/cache/transcodes
+      - /mnt/tv:/tv
+    devices:
+      - /dev/dri:dev/dri:rwm
+    cap_add:
+      - SYS_ADMIN
+      - MKNOD
+    ports:
+      - 7359:7359/udp #optional
+      - 1900:1900/udp #optional
+    expose:
+      - 8096
+    restart: unless-stopped
+    networks:
+    - nginx_proxynetwork
+networks:
+  nginx_proxynetwork:
+    external: true
