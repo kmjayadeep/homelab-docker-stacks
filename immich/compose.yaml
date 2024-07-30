@@ -2,7 +2,7 @@ name: immich
 services:
   redis:
     container_name: immich_redis
-    image: docker.io/redis:7.2.5-alpine3.20
+    image: docker.io/redis:7.4.0-alpine3.20
     healthcheck:
       test: redis-cli ping || exit 1
     restart: always
