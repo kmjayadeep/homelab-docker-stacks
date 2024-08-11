@@ -24,8 +24,9 @@ services:
       - /dev/dri:/dev/dri
     env_file:
       - .env
-    ports:
-      - 3001:3001
+    expose:
+      - 3001
+      - 9090
     depends_on:
       - redis
     restart: always
