@@ -41,7 +41,7 @@ services:
       POSTGRES_DB: paperless
       POSTGRES_USER: paperless
       POSTGRES_PASSWORD: paperless
-  webserver:
+  paperless:
     image: ghcr.io/paperless-ngx/paperless-ngx:2.10.2
     restart: unless-stopped
     depends_on:
@@ -59,11 +59,14 @@ services:
       PAPERLESS_URL: https://paperless.cosmos.cboxlab.com
       PAPERLESS_CONSUMER_RECURSIVE: true
       PAPERLESS_CONSUMER_SUBDIRS_AS_TAGS: true
+    networks:
+      - default
+      - nginx_proxynetwork
 volumes:
   data: null
   media: null
   pgdata: null
   redisdata: null
   networks:
-  - default
-  - nginx_proxyne
+    nginx_proxynetwork:
+      external: true
