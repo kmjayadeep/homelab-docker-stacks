@@ -42,7 +42,7 @@ services:
       POSTGRES_USER: paperless
       POSTGRES_PASSWORD: paperless
   webserver:
-    image: ghcr.io/paperless-ngx/paperless-ngx:latest
+    image: ghcr.io/paperless-ngx/paperless-ngx:2.10.2
     restart: unless-stopped
     depends_on:
       - db
@@ -52,14 +52,18 @@ services:
     volumes:
       - data:/usr/src/paperless/data
       - media:/usr/src/paperless/media
-      - ./export:/usr/src/paperless/export
-      - ./consume:/usr/src/paperless/consume
+      - /mnt/documents:/usr/src/paperless/consume
     environment:
       PAPERLESS_REDIS: redis://broker:6379
       PAPERLESS_DBHOST: db
+      PAPERLESS_URL: https://paperless.cosmos.cboxlab.com
+      PAPERLESS_CONSUMER_RECURSIVE: true
+      PAPERLESS_CONSUMER_SUBDIRS_AS_TAGS: true
 volumes:
   data: null
   media: null
   pgdata: null
   redisdata: null
-networks: {}
+  networks:
+  - default
+  - nginx_proxyne
