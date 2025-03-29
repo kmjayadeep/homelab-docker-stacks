@@ -50,7 +50,7 @@ jobs:
           secrets: |
             homelab/ssh/config/ca public_key | SSH_CA_PUBKEY ;
 
-      - uses: eLco/setup-vault@b204df90ed527f0d2e0f30fdeb67e57c103ab5d6 # v1
+      - uses: eLco/setup-vault@5d0ddffdfca9650484ae1378dafc376a9ebcd15e # v1
 
       - name: Setup SSH
         run: |
