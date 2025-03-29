@@ -22,4 +22,6 @@ services:
     - "traefik.enable=true"
     - "traefik.http.routers.speedtest.rule=Host(`traefik.cosmos.cboxlab.com`)"
     - "traefik.http.routers.speedtest.entrypoints=web"
-networks: {}
+networks:
+  traefik_proxynetwork:
+    name: traefik_proxynetwork

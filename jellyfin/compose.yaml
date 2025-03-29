@@ -33,3 +33,5 @@ services:
 networks:
   nginx_proxynetwork:
     external: true
+  traefik_proxynetwork:
+    external: true
