@@ -35,7 +35,7 @@ jobs:
             if [ -f "$dir/compose.yaml" ]; then
               echo "$dir";
             fi;
-          done)
+          done | xargs)
 
           echo "services=${COMPOSE_DIRS}" >> $GITHUB_OUTPUT
 
