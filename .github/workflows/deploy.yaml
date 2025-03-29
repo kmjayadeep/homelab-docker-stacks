@@ -3,8 +3,7 @@ name: Deploy Multiple Stacks
 on:
   push:
     branches:
-      - main  # Change if needed
-      - gh-actions
+      - main
 
 env:
   VAULT_ADDR: "https://vault.cosmos.cboxlab.com"
