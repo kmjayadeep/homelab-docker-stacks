@@ -6,23 +6,68 @@ on:
       - main  # Change if needed
       - gh-actions
 
+env:
+  VAULT_ADDR: "https://vault.cosmos.cboxlab.com"
+
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
+    permissions:
+      contents: read
+      id-token: write
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Required to get git history for changed files
 
       - name: Get Commit SHA
         run: echo "GIT_COMMIT_SHA=$(git rev-parse HEAD)" >> $GITHUB_ENV
 
-      - name: Setup SSH Key
+      - name: Get changed folders with compose.yaml
+        id: changed-services
+        run: |
+          # Get list of changed files in last commit
+          CHANGED_FILES=$(git diff --name-only HEAD^ HEAD)
+
+          # Find unique directories containing compose.yaml from changed files
+          COMPOSE_DIRS=$(echo "$CHANGED_FILES" | xargs -I {} dirname {} | sort | uniq | while read dir; do
+            if [ -f "$dir/compose.yaml" ]; then
+              echo "$dir";
+            fi;
+          done)
+
+          echo "services=${COMPOSE_DIRS}" >> $GITHUB_OUTPUT
+
+      - name: Vault Secrets
+        id: vault-secrets
+        uses: hashicorp/vault-action@v3
+        with:
+          url: ${{env.VAULT_ADDR}}
+          role: auth.jwt.homelab-docker-stacks
+          method: jwt
+          exportToken: true
+          secrets: |
+            homelab/ssh/config/ca public_key | SSH_CA_PUBKEY ;
+
+      - uses: eLco/setup-vault@b204df90ed527f0d2e0f30fdeb67e57c103ab5d6 # v1
+
+      - name: Setup SSH
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+          ssh-keyscan -t rsa jailmaker-docker.cosmos.cboxlab.com >> ~/.ssh/known_hosts
+          ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519 -N ""
+          echo "${{ steps.vault-ssh.outputs.SSH_CA_PUBKEY }}" > ~/.ssh/ca.pub
+          vault write -field=signed_key homelab/ssh/sign/jailmaker-docker public_key=@/home/runner/.ssh/id_ed25519.pub valid_principals=root  > ~/.ssh/id_ed25519-cert.pub
+          chmod 600 ~/.ssh/*
+          cat <<EOF >> ~/.ssh/config
+          Host jail
+            HostName jailmaker-docker.cosmos.cboxlab.com
+            User root
+            IdentityFile ~/.ssh/id_ed25519
+            CertificateFile ~/.ssh/id_ed25519-cert.pub
+          EOF
 
       - name: Deploy to Remote Server
-        run: ./github/scripts/update-stack.sh rclone
+        run: ./.github/scripts/update-stack.sh ${{ steps.changed-services.outputs.services }}

@@ -20,8 +20,7 @@ fi
 # Checkout code
 ssh "$REMOTE_USER@$REMOTE_HOST" << EOF
     cd $REMOTE_PATH
-    git checkout main
-    git pull
+    git fetch origin
     git checkout $GIT_COMMIT_SHA
 EOF
 
