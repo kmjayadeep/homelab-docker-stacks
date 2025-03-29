@@ -1,10 +1,5 @@
 #!/usr/bin/env bash
 
-if [ $# -eq 0 ]; then
-  echo "❌ No stack names provided. Usage: ./$(basename $0) stack1 stack2 ..."
-    exit 1
-fi
-
 # Define remote server details
 REMOTE_USER="root"
 REMOTE_HOST="jailmaker-docker.cosmos.cboxlab.com"
