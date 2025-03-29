@@ -6,7 +6,7 @@ services:
       - PUID=1000
       - PGID=107
       - TZ=Europe/Berlin
-      - JELLYFIN_PublishedServerUrl=jellyfin.cosmos.cboxlab.com:8096
+      - JELLYFIN_PublishedServerUrl=https://jellyfin.cosmos.cboxlab.com
     volumes:
       - /mnt/data/jellyfin/config:/config
       - /mnt/data/jellyfin/transcodes:/config/cache/transcodes
@@ -19,11 +19,13 @@ services:
     ports:
       - 7359:7359/udp #optional
       - 1900:1900/udp #optional
+      - 8096:8096/tcp
     expose:
       - 8096
     restart: unless-stopped
     networks:
-    - nginx_proxynetwork
+      - nginx_proxynetwork
+      - default
 networks:
   nginx_proxynetwork:
     external: true
