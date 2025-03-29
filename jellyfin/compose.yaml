@@ -25,6 +25,7 @@ services:
     restart: unless-stopped
     networks:
       - nginx_proxynetwork
+      - traefik_proxynetwork
       - default
     labels:
     - "traefik.enable=true"
