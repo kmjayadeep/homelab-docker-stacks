@@ -30,7 +30,7 @@ services:
     labels:
     - "traefik.enable=true"
     - "traefik.http.routers.jellyfin.rule=Host(`jellyfin.cosmos.cboxlab.com`)"
-    - "traefik.http.routers.jellyfin.loadbalancer.server.port=8096"
+    - "traefik.http.routers.jellyfin.server.port=8096"
     - "traefik.http.routers.jellyfin.entrypoints=web"
 networks:
   nginx_proxynetwork:
