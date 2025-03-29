@@ -1,24 +1,25 @@
 name: traefik
-
 services:
   traefik:
-    image: "traefik:v3.3"
-    container_name: "traefik"
+    image: traefik:v3.3
+    container_name: traefik
     command:
-      - "--api.insecure=true"
-      - "--providers.docker=true"
-      - "--providers.docker.exposedbydefault=false"
-      - "--entryPoints.web.address=:80"
+      - --api.insecure=true
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=false
+      - --entryPoints.web.address=:80
     ports:
-      - "1080:80"
-      - "8080:8080"
+      - 1080:80
+      - 8080:8080
     volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
-
-  whoami:
-    image: "traefik/whoami"
-    container_name: "simple-service"
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      
+  speedtest:
+    restart: unless-stopped
+    container_name: openspeedtest
+    image: openspeedtest/latest   
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.whoami.rule=Host(`traefik.cosmos.cboxlab.com`)"
-      - "traefik.http.routers.whoami.entrypoints=web"
+    - "traefik.enable=true"
+    - "traefik.http.routers.speedtest.rule=Host(`traefik.cosmos.cboxlab.com`)"
+    - "traefik.http.routers.speedtest.entrypoints=web"
+networks: {}

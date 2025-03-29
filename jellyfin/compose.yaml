@@ -26,6 +26,10 @@ services:
     networks:
       - nginx_proxynetwork
       - default
+    labels:
+    - "traefik.enable=true"
+    - "traefik.http.routers.jellyfin.rule=Host(`jellyfin.cosmos.cboxlab.com`)"
+    - "traefik.http.routers.jellyfin.entrypoints=web"
 networks:
   nginx_proxynetwork:
     external: true
