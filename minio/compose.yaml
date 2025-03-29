@@ -1,7 +1,7 @@
 version: "3"
 services:
   minio:
-    image: docker.io/bitnami/minio:2024.7.4
+    image: docker.io/bitnami/minio:2024.12.18
     expose:
       - 9000
       - 9001
