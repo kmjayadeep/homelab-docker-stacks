@@ -45,7 +45,7 @@ services:
       - "traefik.http.routers.traefik.tls.domains[0].main=cosmos.cboxlab.com"
       - "traefik.http.routers.traefik.tls.domains[0].sans=*.cosmos.cboxlab.com"
       - "traefik.http.routers.traefik.middlewares=traefik-auth"
-      - "traefik.http.middlewares.traefik-auth.basicauth.users=admin:$2y$10$ezn.0XEWztv9r7Wi5Z4f8.NS6CH/ZXVNauOkumLeKt48SySDSx.ES"
+      - "traefik.http.middlewares.traefik-auth.basicauth.users=admin:$apr1$8jqK4snY$G76Km45GX.u5/JTqn1RK9."
       
 networks:
   traefik_proxynetwork:
