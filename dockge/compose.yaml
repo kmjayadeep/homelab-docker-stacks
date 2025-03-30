@@ -15,6 +15,9 @@ services:
       # ⚠️ 1. FULL path only. No relative path (MUST)
       # ⚠️ 2. Left Stacks Path === Right Stacks Path (MUST)
       - /opt/stacks:/opt/stacks
+    networks:
+      - traefik_proxynetwork
+      - default
     labels:
     - "traefik.enable=true"
     - "traefik.http.routers.speedtest.rule=Host(`dockge.cosmos.cboxlab.com`)"
@@ -26,3 +29,7 @@ services:
     environment:
       # Tell Dockge where to find the stacks
       - DOCKGE_STACKS_DIR=/opt/stacks
+
+networks:
+  traefik_proxynetwork:
+    external: true
