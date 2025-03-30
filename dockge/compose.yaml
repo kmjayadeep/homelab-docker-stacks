@@ -20,12 +20,12 @@ services:
       - default
     labels:
     - "traefik.enable=true"
-    - "traefik.http.routers.speedtest.rule=Host(`dockge.cosmos.cboxlab.com`)"
-    - "traefik.http.routers.speedtest.entrypoints=websecure"
-    - "traefik.http.routers.speedtest.tls=true"
-    - "traefik.http.routers.speedtest.tls.certresolver=letsencrypt"
-    - "traefik.http.routers.speedtest.tls.domains[0].main=cosmos.cboxlab.com"
-    - "traefik.http.routers.speedtest.tls.domains[0].sans=*.cosmos.cboxlab.com"
+    - "traefik.http.routers.dockge.rule=Host(`dockge.cosmos.cboxlab.com`)"
+    - "traefik.http.routers.dockge.entrypoints=websecure"
+    - "traefik.http.routers.dockge.tls=true"
+    - "traefik.http.routers.dockge.tls.certresolver=letsencrypt"
+    - "traefik.http.routers.dockge.tls.domains[0].main=cosmos.cboxlab.com"
+    - "traefik.http.routers.dockge.tls.domains[0].sans=*.cosmos.cboxlab.com"
     environment:
       # Tell Dockge where to find the stacks
       - DOCKGE_STACKS_DIR=/opt/stacks
