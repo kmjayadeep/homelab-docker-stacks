@@ -4,6 +4,8 @@ services:
     image: traefik:v3.3
     container_name: traefik
     command:
+      - --log
+      - --log.level=INFO
       - --api.insecure=true
       - --providers.docker=true
       - --providers.docker.exposedbydefault=false

@@ -10,7 +10,18 @@ services:
     restart: unless-stopped
     networks:
       - nginx_proxynetwork
+      - traefik_proxynetwork
     env_file: .env
+    labels:
+    - "traefik.enable=true"
+    - "traefik.http.routers.minio.rule=Host(`minio.cosmos.cboxlab.com`)"
+    - "traefik.http.routers.minio.entrypoints=websecure"
+    - "traefik.http.services.minio.loadbalancer.server.port=9000"
+    - "traefik.http.routers.minio-admin.rule=Host(`minio-admin.cosmos.cboxlab.com`)"
+    - "traefik.http.routers.minio-admin.entrypoints=websecure"
+    - "traefik.http.services.minio-admin.loadbalancer.server.port=9001"
 networks:
   nginx_proxynetwork:
+    external: true
+  traefik_proxynetwork:
     external: true

@@ -26,15 +26,23 @@ services:
       - .env
     expose:
       - 2283
-      - 9090
+      - 9090 # prometheus
     depends_on:
       - redis
     restart: always
     networks:
       - nginx_proxynetwork
+      - traefik_proxynetwork
       - default
+    labels:
+    - "traefik.enable=true"
+    - "traefik.http.routers.immich.rule=Host(`immich.cosmos.cboxlab.com`)"
+    - "traefik.http.routers.immich.entrypoints=websecure"
+    - "traefik.http.services.immich.loadbalancer.server.port=2283"
 volumes:
   model-cache: null
 networks:
   nginx_proxynetwork:
+    external: true
+  traefik_proxynetwork:
     external: true
