@@ -1,4 +1,5 @@
-version: "3"
+name: minio
+
 services:
   minio:
     image: docker.io/bitnami/minio:2025.3.12
@@ -18,11 +19,12 @@ services:
     # Minio API
     - "traefik.http.routers.minio.rule=Host(`minio.cosmos.cboxlab.com`)"
     - "traefik.http.routers.minio.entrypoints=websecure"
-    - "traefik.http.services.minio.loadbalancer.server.port=9000"
     - "traefik.http.routers.minio.tls=true"
     - "traefik.http.routers.minio.tls.certresolver=letsencrypt"
     - "traefik.http.routers.minio.tls.domains[0].main=cosmos.cboxlab.com"
     - "traefik.http.routers.minio.tls.domains[0].sans=*.cosmos.cboxlab.com"
+    - "traefik.http.routers.minio.service=minio"
+    - "traefik.http.services.minio.loadbalancer.server.port=9000"
 
     # Minio Admin
     - "traefik.http.routers.minio-admin.rule=Host(`minio-admin.cosmos.cboxlab.com`)"
