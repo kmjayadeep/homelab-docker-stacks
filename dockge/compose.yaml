@@ -1,0 +1,28 @@
+name: dockge
+
+services:
+  dockge:
+    image: louislam/dockge:1
+    restart: unless-stopped
+    ports:
+      # Expose port as a backup in case proxy fails
+      - 5001:5001
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /mnt/data/dockge:/app/data
+      # Stacks Directory
+      # ⚠️ READ IT CAREFULLY. If you did it wrong, your data could end up writing into a WRONG PATH.
+      # ⚠️ 1. FULL path only. No relative path (MUST)
+      # ⚠️ 2. Left Stacks Path === Right Stacks Path (MUST)
+      - /opt/stacks:/opt/stacks
+    labels:
+    - "traefik.enable=true"
+    - "traefik.http.routers.speedtest.rule=Host(`dockge.cosmos.cboxlab.com`)"
+    - "traefik.http.routers.speedtest.entrypoints=websecure"
+    - "traefik.http.routers.speedtest.tls=true"
+    - "traefik.http.routers.speedtest.tls.certresolver=letsencrypt"
+    - "traefik.http.routers.speedtest.tls.domains[0].main=cosmos.cboxlab.com"
+    - "traefik.http.routers.speedtest.tls.domains[0].sans=*.cosmos.cboxlab.com"
+    environment:
+      # Tell Dockge where to find the stacks
+      - DOCKGE_STACKS_DIR=/opt/stacks
