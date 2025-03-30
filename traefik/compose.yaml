@@ -13,13 +13,23 @@ services:
       - --entrypoints.web.http.redirections.entrypoint.to=websecure
       - --entrypoints.web.http.redirections.entrypoint.scheme=https
       - --entrypoints.websecure.address=:443
-      # - --entrypoints.websecure.http.tls=true
-      #- --entrypoints.websecure.http.tls.certresolver=letsencrypt
+      - --entrypoints.websecure.http.tls=true
+      - --entrypoints.websecure.http.tls.certresolver=letsencrypt
+      - --certificatesresolvers.letsencrypt.acme.email=kmjayadeep+letsencrypt@gmail.com
+      - --certificatesresolvers.letsencrypt.acme.storage=/etc/traefik/acme/letsencrypt.json
+      - --certificatesresolvers.letsencrypt.acme.dnschallenge.provider=cloudflare
+      - --certificatesresolvers.letsencrypt.acme.dnschallenge.delaybeforecheck=300
+      - --certificatesresolvers.letsencrypt.acme.dnschallenge.resolvers=1.1.1.1:53
+    secrets:
+      - cf_token
+    env_file:
+      - .env
     ports:
       - 80:80
       - 8443:443 # Switch to 443 later
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /mnt/data/traefik/acme:/etc/traefik/acme
     networks:
       - traefik_proxynetwork
     labels:
@@ -27,8 +37,12 @@ services:
       - "traefik.http.routers.traefik.rule=Host(`traefik.cosmos.cboxlab.com`)"
       - "traefik.http.routers.traefik.entrypoints=websecure"
       - "traefik.http.routers.traefik.service=api@internal"
-      #- "traefik.http.routers.traefik.tls=true"
+      - "traefik.http.routers.traefik.tls=true"
       
 networks:
   traefik_proxynetwork:
     name: traefik_proxynetwork
+
+secrets:
+   cf_token:
+     file: secret-cf-token
