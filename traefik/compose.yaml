@@ -10,11 +10,17 @@ services:
       - --entryPoints.web.address=:80
     ports:
       - 80:80
+      - 8443:443 # Switch to 443 later
       - 8080:8080
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     networks:
       - traefik_proxynetwork
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.traefik.rule=Host(`traefik.cosmos.cboxlab.com`)"
+      - "traefik.http.routers.traefik.entrypoints=web"
+      - "traefik.http.routers.traefik.service=api@internal" # Expose the dashboard
       
   speedtest:
     restart: unless-stopped
@@ -22,7 +28,7 @@ services:
     image: openspeedtest/latest   
     labels:
     - "traefik.enable=true"
-    - "traefik.http.routers.speedtest.rule=Host(`traefik.cosmos.cboxlab.com`)"
+    - "traefik.http.routers.speedtest.rule=Host(`speedtest-nas.cosmos.cboxlab.com`)"
     - "traefik.http.routers.speedtest.entrypoints=web"
     networks:
       - traefik_proxynetwork
