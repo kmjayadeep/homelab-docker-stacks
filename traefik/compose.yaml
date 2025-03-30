@@ -39,6 +39,8 @@ services:
       - "traefik.http.routers.traefik.service=api@internal"
       - "traefik.http.routers.traefik.tls=true"
       - "traefik.http.routers.traefik.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.traefik.tls.domains[0].main=cosmos.cboxlab.com"
+      - "traefik.http.routers.traefik.tls.domains[0].sans=*.cosmos.cboxlab.com"
       
 networks:
   traefik_proxynetwork:
