@@ -6,8 +6,8 @@ services:
     image: openspeedtest/latest   
     labels:
     - "traefik.enable=true"
-    - "traefik.http.routers.speedtest.rule=Host(`speedtest.cosmos.cboxlab.com`)"
-    - "traefik.http.routers.speedtest.entrypoints=web"
+    - "traefik.http.routers.speedtest.rule=Host(`speedtest-nas.cosmos.cboxlab.com`)"
+    - "traefik.http.routers.speedtest.entrypoints=websecure"
     networks:
       - traefik_proxynetwork
 

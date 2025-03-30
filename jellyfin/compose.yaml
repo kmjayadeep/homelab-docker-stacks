@@ -30,7 +30,7 @@ services:
     labels:
     - "traefik.enable=true"
     - "traefik.http.routers.jellyfin.rule=Host(`jellyfin.cosmos.cboxlab.com`)"
-    - "traefik.http.routers.jellyfin.entrypoints=web"
+    - "traefik.http.routers.jellyfin.entrypoints=websecure"
     - "traefik.http.routers.jellyfin.middlewares=jellyfin-ws"
     - "traefik.http.middlewares.jellyfin-ws.headers.customrequestheaders.Upgrade=websocket"
     - "traefik.http.middlewares.jellyfin-ws.headers.customrequestheaders.Connection=Upgrade"
