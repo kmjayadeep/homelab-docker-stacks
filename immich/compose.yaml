@@ -39,6 +39,8 @@ services:
     - "traefik.http.routers.immich.rule=Host(`immich.cosmos.cboxlab.com`)"
     - "traefik.http.routers.immich.entrypoints=websecure"
     - "traefik.http.services.immich.loadbalancer.server.port=2283"
+    - "traefik.http.routers.traefik.tls=true"
+    - "traefik.http.routers.traefik.tls.certresolver=letsencrypt"
 volumes:
   model-cache: null
 networks:
