@@ -14,11 +14,25 @@ services:
     env_file: .env
     labels:
     - "traefik.enable=true"
+
+    # Minio API
     - "traefik.http.routers.minio.rule=Host(`minio.cosmos.cboxlab.com`)"
     - "traefik.http.routers.minio.entrypoints=websecure"
     - "traefik.http.services.minio.loadbalancer.server.port=9000"
     - "traefik.http.routers.minio.tls=true"
     - "traefik.http.routers.minio.tls.certresolver=letsencrypt"
+    - "traefik.http.routers.minio.tls.domains[0].main=cosmos.cboxlab.com"
+    - "traefik.http.routers.minio.tls.domains[0].sans=*.cosmos.cboxlab.com"
+
+    # Minio Admin
+    - "traefik.http.routers.minio-admin.rule=Host(`minio-admin.cosmos.cboxlab.com`)"
+    - "traefik.http.routers.minio-admin.entrypoints=websecure"
+    - "traefik.http.routers.minio-admin.tls=true"
+    - "traefik.http.routers.minio-admin.tls.certresolver=letsencrypt"
+    - "traefik.http.routers.minio-admin.tls.domains[0].main=cosmos.cboxlab.com"
+    - "traefik.http.routers.minio-admin.tls.domains[0].sans=*.cosmos.cboxlab.com"
+    - "traefik.http.routers.minio-admin.service=minio-admin"
+    - "traefik.http.services.minio-admin.loadbalancer.server.port=9001"
 networks:
   nginx_proxynetwork:
     external: true
