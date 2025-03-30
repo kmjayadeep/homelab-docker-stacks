@@ -17,8 +17,8 @@ services:
     - "traefik.http.routers.minio.rule=Host(`minio.cosmos.cboxlab.com`)"
     - "traefik.http.routers.minio.entrypoints=websecure"
     - "traefik.http.services.minio.loadbalancer.server.port=9000"
-    - "traefik.http.routers.traefik.tls=true"
-    - "traefik.http.routers.traefik.tls.certresolver=letsencrypt"
+    - "traefik.http.routers.minio.tls=true"
+    - "traefik.http.routers.minio.tls.certresolver=letsencrypt"
 networks:
   nginx_proxynetwork:
     external: true
