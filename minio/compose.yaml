@@ -2,7 +2,7 @@ name: minio
 
 services:
   minio:
-    image: docker.io/bitnami/minio:2025.3.12
+    image: docker.io/bitnami/minio:2025.4.3
     expose:
       - 9000
       - 9001
