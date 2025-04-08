@@ -25,7 +25,8 @@ services:
     env_file:
       - .env
     ports:
-      - 8081:8081 # metrics
+      - 8081:8081 # api metrics
+      - 8082:8082 # microservics metrics
     depends_on:
       - redis
     restart: always
