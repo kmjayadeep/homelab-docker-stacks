@@ -24,8 +24,8 @@ services:
       - /dev/dri:/dev/dri
     env_file:
       - .env
-    expose:
-      - 8081 # metrics
+    ports:
+      - 8081:8081 # metrics
     depends_on:
       - redis
     restart: always
