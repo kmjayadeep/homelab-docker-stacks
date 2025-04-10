@@ -42,7 +42,7 @@ services:
       POSTGRES_USER: paperless
       POSTGRES_PASSWORD: paperless
   paperless:
-    image: ghcr.io/paperless-ngx/paperless-ngx:2.15.0
+    image: ghcr.io/paperless-ngx/paperless-ngx:2.15.1
     restart: unless-stopped
     depends_on:
       - db
