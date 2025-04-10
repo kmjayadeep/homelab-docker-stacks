@@ -2,8 +2,12 @@ name: speedtest
 services:
   speedtest:
     restart: unless-stopped
-    container_name: openspeedtest
-    image: openspeedtest/latest   
+    container_name: librespeed
+    image: lscr.io/linuxserver/librespeed:latest
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Zurich
     labels:
     - "traefik.enable=true"
     - "traefik.http.routers.speedtest.rule=Host(`speedtest-nas.cosmos.cboxlab.com`)"
