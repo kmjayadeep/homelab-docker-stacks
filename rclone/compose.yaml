@@ -9,7 +9,7 @@ services:
     restart: unless-stopped
     command: rcd --rc-web-gui
       --rc-web-fetch-url=https://api.github.com/repos/rclone/rclone-webui-react/releases/latest
-      --rc-web-gui-update --rc-no-auth --rc-addr 0.0.0.0:5572
+      --rc-web-gui-update --rc-addr 0.0.0.0:5572 --rc-htpasswd /run/secrets/htpasswd
       -vv --checksum --transfers=4 --checkers=4 --contimeout=60s --timeout=300s
       --retries=3 --low-level-retries=10 --stats=1s --stats-file-name-length=0
     environment:
@@ -25,8 +25,13 @@ services:
       - traefik.http.routers.rclone.tls.domains[0].main=cosmos.cboxlab.com
       - traefik.http.routers.rclone.tls.domains[0].sans=*.cosmos.cboxlab.com
       - traefik.http.services.rclone.loadbalancer.server.port=5572
-      - traefik.http.routers.rclone.middlewares=rclone-auth@docker
-      - "traefik.http.middlewares.rclone-auth.basicauth.users=admin:$2y$05$468.mioW7yOuN0txVCzWQe.XVhIDB8JoJp8bwKC97nGn.mX3st7s2"
+    secrets:
+       - htpasswd
+
+secrets:
+   db_password:
+     file: ./secret-htpasswd
+
 networks:
   traefik_proxynetwork:
     external: true
