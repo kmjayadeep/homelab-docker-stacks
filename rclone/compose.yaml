@@ -29,7 +29,7 @@ services:
        - htpasswd
 
 secrets:
-   db_password:
+   htpasswd:
      file: ./secret-htpasswd
 
 networks:
