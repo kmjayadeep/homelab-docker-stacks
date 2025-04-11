@@ -16,12 +16,12 @@ services:
       - traefik_proxynetwork
     labels:
     - "traefik.enable=true"
-    - "traefik.http.routers.myspeed.rule=Host(`rclone.cosmos.cboxlab.com`)"
-    - "traefik.http.routers.myspeed.entrypoints=websecure"
-    - "traefik.http.routers.myspeed.tls=true"
-    - "traefik.http.routers.myspeed.tls.certresolver=letsencrypt"
-    - "traefik.http.routers.myspeed.tls.domains[0].main=cosmos.cboxlab.com"
-    - "traefik.http.routers.myspeed.tls.domains[0].sans=*.cosmos.cboxlab.com"
+    - "traefik.http.routers.rclone.rule=Host(`rclone.cosmos.cboxlab.com`)"
+    - "traefik.http.routers.rclone.entrypoints=websecure"
+    - "traefik.http.routers.rclone.tls=true"
+    - "traefik.http.routers.rclone.tls.certresolver=letsencrypt"
+    - "traefik.http.routers.rclone.tls.domains[0].main=cosmos.cboxlab.com"
+    - "traefik.http.routers.rclone.tls.domains[0].sans=*.cosmos.cboxlab.com"
 networks:
   traefik_proxynetwork:
     external: true
