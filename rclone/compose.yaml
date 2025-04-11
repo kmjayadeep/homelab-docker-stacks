@@ -25,7 +25,7 @@ services:
       - traefik.http.routers.rclone.tls.domains[0].main=cosmos.cboxlab.com
       - traefik.http.routers.rclone.tls.domains[0].sans=*.cosmos.cboxlab.com
       - traefik.http.services.rclone.loadbalancer.server.port=5572
-      - traefik.http.routers.traefik.middlewares=rclone-auth@docker
+      - traefik.http.routers.rclone.middlewares=rclone-auth@docker
       - traefik.http.middlewares.rclone-auth.basicauth.users=admin:$2y$05$468.mioW7yOuN0txVCzWQe.XVhIDB8JoJp8bwKC97nGn.mX3st7s2
 networks:
   traefik_proxynetwork:
