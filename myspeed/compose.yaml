@@ -8,7 +8,6 @@ services:
     restart: unless-stopped
     image: germannewsmaker/myspeed:1.0.9
     networks:
-      - nginx_proxynetwork
       - traefik_proxynetwork
     labels:
     - "traefik.enable=true"
@@ -19,7 +18,5 @@ services:
     - "traefik.http.routers.myspeed.tls.domains[0].main=cosmos.cboxlab.com"
     - "traefik.http.routers.myspeed.tls.domains[0].sans=*.cosmos.cboxlab.com"
 networks:
-  nginx_proxynetwork:
-    external: true
   traefik_proxynetwork:
     external: true

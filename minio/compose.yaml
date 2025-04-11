@@ -10,7 +10,6 @@ services:
       - /mnt/data/minio/:/bitnami/minio/data
     restart: unless-stopped
     networks:
-      - nginx_proxynetwork
       - traefik_proxynetwork
     env_file: .env
     labels:
@@ -36,7 +35,5 @@ services:
     - "traefik.http.routers.minio-admin.service=minio-admin"
     - "traefik.http.services.minio-admin.loadbalancer.server.port=9001"
 networks:
-  nginx_proxynetwork:
-    external: true
   traefik_proxynetwork:
     external: true

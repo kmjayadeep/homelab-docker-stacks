@@ -24,9 +24,7 @@ services:
       - 8096
     restart: unless-stopped
     networks:
-      - nginx_proxynetwork
       - traefik_proxynetwork
-      - default
     labels:
     - "traefik.enable=true"
     - "traefik.http.routers.jellyfin.rule=Host(`jellyfin.cosmos.cboxlab.com`)"
@@ -40,7 +38,5 @@ services:
     - "traefik.http.routers.jellyfin.tls.domains[0].main=cosmos.cboxlab.com"
     - "traefik.http.routers.jellyfin.tls.domains[0].sans=*.cosmos.cboxlab.com"
 networks:
-  nginx_proxynetwork:
-    external: true
   traefik_proxynetwork:
     external: true

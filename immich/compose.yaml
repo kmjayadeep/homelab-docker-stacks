@@ -31,7 +31,6 @@ services:
       - redis
     restart: always
     networks:
-      - nginx_proxynetwork
       - traefik_proxynetwork
       - default
     labels:
@@ -46,7 +45,5 @@ services:
 volumes:
   model-cache: null
 networks:
-  nginx_proxynetwork:
-    external: true
   traefik_proxynetwork:
     external: true
