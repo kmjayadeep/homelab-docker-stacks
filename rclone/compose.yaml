@@ -1,3 +1,5 @@
+name: rclone
+
 services:
   rclone:
     image: rclone/rclone:v1.69-stable
@@ -6,22 +8,23 @@ services:
       - no-new-privileges:true
     restart: unless-stopped
     command: rcd --rc-web-gui
-       --rc-web-fetch-url=https://api.github.com/repos/rclone/rclone-webui-react/releases/latest
-       --rc-web-gui-update --rc-no-auth
-       --rc-baseurl rclone.cosmos.cboxlab.com
-       -vv --checksum --transfers=4 --checkers=4 --contimeout=60s --timeout=300s --retries=3 --low-level-retries=10 --stats=1s --stats-file-name-length=0
+      --rc-web-fetch-url=https://api.github.com/repos/rclone/rclone-webui-react/releases/latest
+      --rc-web-gui-update --rc-no-auth --rc-baseurl rclone.cosmos.cboxlab.com
+      -vv --checksum --transfers=4 --checkers=4 --contimeout=60s --timeout=300s
+      --retries=3 --low-level-retries=10 --stats=1s --stats-file-name-length=0
     environment:
       - PHP_TZ=Europe/Zurich
     networks:
       - traefik_proxynetwork
     labels:
-    - "traefik.enable=true"
-    - "traefik.http.routers.rclone.rule=Host(`rclone.cosmos.cboxlab.com`)"
-    - "traefik.http.routers.rclone.entrypoints=websecure"
-    - "traefik.http.routers.rclone.tls=true"
-    - "traefik.http.routers.rclone.tls.certresolver=letsencrypt"
-    - "traefik.http.routers.rclone.tls.domains[0].main=cosmos.cboxlab.com"
-    - "traefik.http.routers.rclone.tls.domains[0].sans=*.cosmos.cboxlab.com"
+      - traefik.enable=true
+      - traefik.http.routers.rclone.rule=Host(`rclone.cosmos.cboxlab.com`)
+      - traefik.http.routers.rclone.entrypoints=websecure
+      - traefik.http.routers.rclone.tls=true
+      - traefik.http.routers.rclone.tls.certresolver=letsencrypt
+      - traefik.http.routers.rclone.tls.domains[0].main=cosmos.cboxlab.com
+      - traefik.http.routers.rclone.tls.domains[0].sans=*.cosmos.cboxlab.com
 networks:
   traefik_proxynetwork:
     external: true
+
