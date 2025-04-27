@@ -9,6 +9,7 @@ services:
       - /mnt/data/backrest/config:/config
       - /mnt/data/backrest/data:/data
       - /mnt/data/backrest/cache:/cache
+      - /mnt/data/backrest/ssh-keys:/ssh-keys
     environment:
       - BACKREST_DATA=/data
       - BACKREST_CONFIG=/config/config.json
@@ -27,14 +28,6 @@ services:
       - traefik.http.routers.backrest.tls.domains[0].main=cosmos.cboxlab.com
       - traefik.http.routers.backrest.tls.domains[0].sans=*.cosmos.cboxlab.com
       - traefik.http.services.backrest.loadbalancer.server.port=9898
-    secrets:
-      - source: psuite_ssh_key
-        target: psuite_ssh_key
-        mode: "0400"
 networks:
   traefik_proxynetwork:
     external: true
-
-secrets:
-   psuite_ssh_key:
-     file: secret-psuite-ssh-key
