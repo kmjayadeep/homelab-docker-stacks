@@ -27,6 +27,12 @@ services:
       - traefik.http.routers.backrest.tls.domains[0].main=cosmos.cboxlab.com
       - traefik.http.routers.backrest.tls.domains[0].sans=*.cosmos.cboxlab.com
       - traefik.http.services.backrest.loadbalancer.server.port=9898
+    secrets:
+      - psuite_ssh_key
 networks:
   traefik_proxynetwork:
     external: true
+
+secrets:
+   psuite_ssh_key:
+     file: secret-psuite-ssh-key
