@@ -10,6 +10,7 @@ services:
       - /mnt/data/backrest/data:/data
       - /mnt/data/backrest/cache:/cache
       - /mnt/data/backrest/ssh-keys:/ssh-keys
+      - /mnt/psuite:/mnt/psuite
     environment:
       - BACKREST_DATA=/data
       - BACKREST_CONFIG=/config/config.json
