@@ -42,6 +42,7 @@ services:
       - /mnt/data/traefik/acme:/etc/traefik/acme
     networks:
       - traefik_proxynetwork
+      - traefik_dualstack
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.traefik.rule=Host(`traefik.cosmos.cboxlab.com`)"
@@ -58,6 +59,15 @@ services:
 networks:
   traefik_proxynetwork:
     name: traefik_proxynetwork
+  traefik_dualstack:
+    name: traefik_dualstack
+    driver: bridge
+    enable_ipv6: true
+    ipam:
+      driver: default
+      config:
+        - subnet: "172.27.0.0/16"   # IPv4 subnet
+        - subnet: "fd82:852b:c100:200::/64" # IPv6 subnet
 
 secrets:
    cf_token:
