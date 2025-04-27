@@ -1,8 +1,8 @@
 name: backrest
-version: "3.8"
+
 services:
   backrest:
-    image: garethgeorge/backrest:v1.8.0-scratch
+    image: garethgeorge/backrest:v1.8.0
     container_name: backrest
     restart: unless-stopped
     volumes:
