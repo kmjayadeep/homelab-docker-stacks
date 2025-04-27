@@ -53,7 +53,7 @@ services:
       - "traefik.http.routers.traefik.tls.domains[0].sans=*.cosmos.cboxlab.com"
       - "traefik.http.routers.traefik.middlewares=traefik-auth@docker"
       - "traefik.http.middlewares.traefik-auth.basicauth.users=admin:$2y$05$0nz2aDC5QlrLRP72nOZKNekPbVkhib2E9nx4ye95FdUZElfvCWoqq"
-    restart: on-failure
+    restart: unless-stopped
       
 networks:
   traefik_proxynetwork:
