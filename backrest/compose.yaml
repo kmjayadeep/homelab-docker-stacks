@@ -1,0 +1,32 @@
+name: backrest
+version: "3.8"
+services:
+  backrest:
+    image: garethgeorge/backrest:v1.8.0-scratch
+    container_name: backrest
+    restart: unless-stopped
+    volumes:
+      - /mnt/data/backrest/config:/config
+      - /mnt/data/backrest/data:/data
+      - /mnt/data/backrest/cache:/cache
+    environment:
+      - BACKREST_DATA=/data
+      - BACKREST_CONFIG=/config/config.json
+      - XDG_CACHE_HOME=/cache
+      - TMPDIR=/tmp
+      - TZ=Europe/Zurich
+    networks:
+      - traefik_proxynetwork
+      - default
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.backrest.rule=Host(`backrest.cosmos.cboxlab.com`)
+      - traefik.http.routers.backrest.entrypoints=websecure
+      - traefik.http.routers.backrest.tls=true
+      - traefik.http.routers.backrest.tls.certresolver=letsencrypt
+      - traefik.http.routers.backrest.tls.domains[0].main=cosmos.cboxlab.com
+      - traefik.http.routers.backrest.tls.domains[0].sans=*.cosmos.cboxlab.com
+      - traefik.http.services.backrest.loadbalancer.server.port=9898
+networks:
+  traefik_proxynetwork:
+    external: true
