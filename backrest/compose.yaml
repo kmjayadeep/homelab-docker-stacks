@@ -29,6 +29,8 @@ services:
       - traefik.http.routers.backrest.tls.domains[0].main=cosmos.cboxlab.com
       - traefik.http.routers.backrest.tls.domains[0].sans=*.cosmos.cboxlab.com
       - traefik.http.services.backrest.loadbalancer.server.port=9898
+    dns:
+      - 1.1.1.1
 networks:
   traefik_proxynetwork:
     external: true
