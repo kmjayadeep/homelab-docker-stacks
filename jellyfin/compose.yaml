@@ -27,7 +27,7 @@ services:
       - traefik_proxynetwork
     labels:
     - "traefik.enable=true"
-    - "traefik.http.routers.jellyfin.rule=Host(`jellyfin.cosmos.cboxlab.com`) || Host(`jellyfin.ext.cosmos.cboxlab.com`)"
+    - "traefik.http.routers.jellyfin.rule=Host(`jellyfin.cosmos.cboxlab.com`) || Host(`jellyfin-public.cosmos.cboxlab.com`)"
     - "traefik.http.routers.jellyfin.entrypoints=websecure"
     - "traefik.http.routers.jellyfin.middlewares=jellyfin-ws"
     - "traefik.http.middlewares.jellyfin-ws.headers.customrequestheaders.Upgrade=websocket"
