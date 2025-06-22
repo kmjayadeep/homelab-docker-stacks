@@ -8,6 +8,10 @@ on:
 env:
   VAULT_ADDR: "https://vault.cosmos.cboxlab.com"
 
+concurrency:
+  group: deploy-stacks
+  cancel-in-progress: false
+
 jobs:
   deploy:
     runs-on: self-hosted
