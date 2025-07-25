@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 env:
   VAULT_ADDR: "https://vault.cosmos.cboxlab.com"
@@ -31,16 +32,25 @@ jobs:
       - name: Get changed folders with compose.yaml
         id: changed-services
         run: |
-          # Get list of changed files in last commit
-          CHANGED_FILES=$(git diff --name-only HEAD^ HEAD)
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            # Manual trigger: deploy all services
+            echo "Manual deployment triggered - finding all services"
+            COMPOSE_DIRS=$(find . -name "compose.yaml" -type f | xargs -I {} dirname {} | sed 's|^\./||' | sort | xargs)
+          else
+            # Automatic trigger: deploy only changed services
+            echo "Automatic deployment triggered - finding changed services"
+            # Get list of changed files in last commit
+            CHANGED_FILES=$(git diff --name-only HEAD^ HEAD)
 
-          # Find unique directories containing compose.yaml from changed files
-          COMPOSE_DIRS=$(echo "$CHANGED_FILES" | xargs -I {} dirname {} | sort | uniq | while read dir; do
-            if [ -f "$dir/compose.yaml" ]; then
-              echo "$dir";
-            fi;
-          done | xargs)
+            # Find unique directories containing compose.yaml from changed files
+            COMPOSE_DIRS=$(echo "$CHANGED_FILES" | xargs -I {} dirname {} | sort | uniq | while read dir; do
+              if [ -f "$dir/compose.yaml" ]; then
+                echo "$dir";
+              fi;
+            done | xargs)
+          fi
 
+          echo "Services to deploy: $COMPOSE_DIRS"
           echo "services=${COMPOSE_DIRS}" >> $GITHUB_OUTPUT
 
       - name: Vault Secrets
