@@ -16,7 +16,7 @@ services:
     restart: always
   immich-server:
     container_name: immich_server
-    image: ghcr.io/immich-app/immich-server:v1.136.0
+    image: ghcr.io/immich-app/immich-server:v1.137.3
     volumes:
       - /mnt/immich:/usr/src/app/upload
       - /etc/localtime:/etc/localtime:ro
