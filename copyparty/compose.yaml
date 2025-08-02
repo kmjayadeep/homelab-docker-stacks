@@ -21,6 +21,8 @@ services:
       - "traefik.http.routers.copyparty.tls.domains[0].main=cosmos.cboxlab.com"
       - "traefik.http.routers.copyparty.tls.domains[0].sans=*.cosmos.cboxlab.com"
     stop_grace_period: 15s
+    env_file:
+      - .env
     environment:
       PYTHONUNBUFFERED: 1
 
