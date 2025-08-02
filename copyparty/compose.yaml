@@ -7,6 +7,7 @@ services:
     command:
       - "--hist"
       - "/w/state"
+      - "--xff-src=172.26.0.0/16"
     volumes:
       - ./cfg:/cfg:z
       - /mnt/data/copyparty/shared:/w/shared:z
