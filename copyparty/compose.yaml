@@ -7,8 +7,6 @@ services:
     command:
       - "--hist"
       - "/w/state"
-      - "-c"
-      - "/cfg/copyparty.conf"
     volumes:
       - ./cfg:/cfg:z
       - /mnt/data/copyparty/shared:/w/shared:z
