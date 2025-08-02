@@ -9,9 +9,10 @@ services:
       - "/w/state"
       - "--xff-src=172.26.0.0/16"
     volumes:
-      - ./cfg:/cfg:z
+      - ./secrets:/cfg:z
       - /mnt/data/copyparty/shared:/w/shared:z
       - /mnt/data/copyparty/state:/w/state:z
+      - /mnt/tv:/w/tv
     networks:
       - traefik_proxynetwork
     expose:
