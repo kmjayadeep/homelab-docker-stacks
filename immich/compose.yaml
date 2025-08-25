@@ -8,7 +8,7 @@ services:
     restart: always
   immich-machine-learning:
     container_name: immich_machine_learning
-    image: ghcr.io/immich-app/immich-machine-learning:v1.138.1
+    image: ghcr.io/immich-app/immich-machine-learning:v1.139.4
     volumes:
       - model-cache:/cache
     env_file:
