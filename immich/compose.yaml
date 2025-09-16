@@ -8,7 +8,7 @@ services:
     restart: always
   immich-machine-learning:
     container_name: immich_machine_learning
-    image: ghcr.io/immich-app/immich-machine-learning:v1.142.0
+    image: ghcr.io/immich-app/immich-machine-learning:v1.142.1
     volumes:
       - model-cache:/cache
     env_file:
@@ -16,7 +16,7 @@ services:
     restart: always
   immich-server:
     container_name: immich_server
-    image: ghcr.io/immich-app/immich-server:v1.142.0
+    image: ghcr.io/immich-app/immich-server:v1.142.1
     volumes:
       - /mnt/immich:/usr/src/app/upload
       - /etc/localtime:/etc/localtime:ro
