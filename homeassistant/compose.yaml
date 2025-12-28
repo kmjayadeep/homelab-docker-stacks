@@ -8,11 +8,10 @@ services:
     restart: unless-stopped
     environment:
       - TZ=Europe/Zurich
-      - HASS_HTTP_TRUSTED_PROXY_1=172.26.0.0/16
-      - HASS_HTTP_USE_X_FORWARDED_FOR=true
     volumes:
       - /mnt/data/homeassistant/config:/config
       - /run/dbus:/run/dbus:ro
+      - ./configuration.yaml:/config/configuration.yaml:ro
     networks:
       - traefik_proxynetwork
     labels:

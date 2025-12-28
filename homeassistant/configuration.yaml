@@ -1,0 +1,8 @@
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+# HTTP Configuration for Reverse Proxy
+http:
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 172.27.0.0/16  # Docker subnet range
