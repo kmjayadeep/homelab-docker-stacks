@@ -11,7 +11,8 @@ services:
     volumes:
       - /mnt/data/homeassistant/config:/config
       - /run/dbus:/run/dbus:ro
-    network_mode: host
+    networks:
+      - traefik_proxynetwork
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.homeassistant.rule=Host(`homeassistant.cosmos.cboxlab.com`)"
@@ -22,3 +23,6 @@ services:
       - "traefik.http.routers.homeassistant.tls.domains[0].sans=*.cosmos.cboxlab.com"
       - "traefik.http.services.homeassistant.loadbalancer.server.port=8123"
 
+networks:
+  traefik_proxynetwork:
+    external: true
