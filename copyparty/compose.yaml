@@ -1,7 +1,7 @@
 
 services:
   copyparty:
-    image: copyparty/ac:1.20.13
+    image: copyparty/ac:1.20.14
     container_name: copyparty
     user: "1000:107"
     command:
