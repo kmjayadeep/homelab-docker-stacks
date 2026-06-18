@@ -55,7 +55,7 @@ jobs:
 
       - name: Vault Secrets
         id: vault-secrets
-        uses: hashicorp/vault-action@v3
+        uses: hashicorp/vault-action@v4
         with:
           url: ${{env.VAULT_ADDR}}
           role: auth.jwt.homelab-docker-stacks
