@@ -11,6 +11,7 @@ services:
       - /mnt/data/jellyfin/config:/config
       - /mnt/data/jellyfin/transcodes:/config/cache/transcodes
       - /mnt/tv:/tv
+      - /mnt/tv/youtube:/tv/youtube:ro
     devices:
       - /dev/dri:dev/dri:rwm
     cap_add:
