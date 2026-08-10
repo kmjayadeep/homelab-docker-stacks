@@ -3,7 +3,7 @@ name: tubearchivist
 services:
   tubearchivist:
     container_name: tubearchivist
-    image: bbilly1/tubearchivist
+    image: bbilly1/tubearchivist:v0.5.10
     restart: unless-stopped
     env_file:
       - .env
@@ -36,7 +36,7 @@ services:
 
   archivist-redis:
     container_name: archivist-redis
-    image: redis
+    image: redis:8.8.1
     restart: unless-stopped
     volumes:
       - /mnt/data/tubearchivist/redis:/data
@@ -47,7 +47,7 @@ services:
 
   archivist-es:
     container_name: archivist-es
-    image: bbilly1/tubearchivist-es
+    image: bbilly1/tubearchivist-es:8.19.0
     restart: unless-stopped
     env_file:
       - .env
