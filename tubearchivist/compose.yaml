@@ -3,7 +3,7 @@ name: tubearchivist
 services:
   tubearchivist:
     container_name: tubearchivist
-    image: bbilly1/tubearchivist:v0.5.10
+    image: bbilly1/tubearchivist:v0.5.12
     restart: unless-stopped
     env_file:
       - .env
