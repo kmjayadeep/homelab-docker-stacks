@@ -47,7 +47,7 @@ services:
 
   archivist-es:
     container_name: archivist-es
-    image: bbilly1/tubearchivist-es:8.19.0
+    image: bbilly1/tubearchivist-es:9.5.5
     restart: unless-stopped
     env_file:
       - .env
