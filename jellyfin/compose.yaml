@@ -9,9 +9,11 @@ services:
       - JELLYFIN_PublishedServerUrl=https://jellyfin.cosmos.cboxlab.com
     volumes:
       - /mnt/data/jellyfin/config:/config
-      - /mnt/data/jellyfin/transcodes:/config/cache/transcodes
       - /mnt/tv:/tv
       - /mnt/tv/youtube:/tv/youtube:ro # intentionally read-only overlay inside /tv
+    tmpfs:
+      # transcode segments in RAM (box has 32G); keeps HDD heads free for media reads
+      - /config/cache/transcodes:size=8g,mode=1777
     devices:
       - /dev/dri:/dev/dri:rwm
     cap_add:
