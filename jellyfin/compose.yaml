@@ -13,7 +13,7 @@ services:
       - /mnt/tv:/tv
       - /mnt/tv/youtube:/tv/youtube:ro # intentionally read-only overlay inside /tv
     devices:
-      - /dev/dri:dev/dri:rwm
+      - /dev/dri:/dev/dri:rwm
     cap_add:
       - SYS_ADMIN
       - MKNOD
