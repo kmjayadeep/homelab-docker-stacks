@@ -17,7 +17,7 @@ services:
       interval: 2m
       timeout: 10s
       retries: 3
-      start_period: 30s
+      start_period: 10m
     depends_on:
       - archivist-es
       - archivist-redis
@@ -47,7 +47,7 @@ services:
 
   archivist-es:
     container_name: archivist-es
-    image: bbilly1/tubearchivist-es:8.19.0
+    image: bbilly1/tubearchivist-es:9.5.5
     restart: unless-stopped
     env_file:
       - .env
